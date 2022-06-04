@@ -1,8 +1,42 @@
-# @markmirror/image
+# @markmirror/menubar
 
-The image extension of MarkMirror - a Markdown Editor based on CodeMirror 6.
+Menubar actions for the MarkMirror Markdown editor.
 
-## Modules
+## Usage
 
-- `previewImage`
-- `uploadImage`
+```js
+import { MarkMirror } from "@markmirror/core"
+import { Menubar, updateMenubar } from "@markmirror/menubar"
+
+const editor = new MarkMirror()
+
+// Menubar requires `editor` as parameter
+const menubar = new Menubar(editor, ["bold", "italic", "codespan", "|", "ul", "ol", "|", "h1", "h2"])
+
+// update menubar active status with `updateMenubar` extension
+editor.addExtension(updateMenubar(menubar))
+
+// mount `menubar.element`
+document.getElementById('menubar')!.appendChild(menubar.element)
+```
+
+## Actions
+
+- undo
+- redo
+- bold
+- italic
+- codespan
+- link
+- image
+- strikethrough
+- codeblock
+- blockquote
+- ul
+- ol
+- h1
+- h2
+- h3
+- h4
+- h5
+- h6

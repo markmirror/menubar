@@ -109,7 +109,7 @@ export class Menubar {
   }
 }
 
-export function updateMenuBar (menubar: Menubar) {
+export function updateMenubar (menubar: Menubar) {
   return onSelectionSet(nodes => {
     menubar.actives = nodes.map(node => menubar.typeMap[node.name] || "").filter(Boolean)
     menubar.updateDOM()
