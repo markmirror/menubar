@@ -9,6 +9,7 @@ import {
   toggleBlockquote,
   toggleBulletList,
   toggleOrderedList,
+  toggleHorizontalRule,
   toggleH1,
   toggleH2,
   toggleH3,
@@ -18,14 +19,12 @@ import {
   onSelectionSet,
   MarkMirror,
 } from "@markmirror/core"
-import { EditorView } from "@codemirror/view"
-import { StateCommand as AltStateCommand } from "@codemirror/state"
+import { Command } from "@codemirror/view"
+import { StateCommand } from "@codemirror/state"
 import { undo, redo } from "@codemirror/commands"
 
-declare type StateCommand = (view: EditorView) => boolean | AltStateCommand;
-
 export class Menubar {
-  private actionMap : {[key: string]: StateCommand} = {
+  private actionMap : {[key: string]: Command | StateCommand} = {
     'undo': undo,
     'redo': redo,
     'bold': toggleBold,
@@ -38,6 +37,7 @@ export class Menubar {
     'blockquote': toggleBlockquote,
     'ul': toggleBulletList,
     'ol': toggleOrderedList,
+    'hr': toggleHorizontalRule,
     'h1': toggleH1,
     'h2': toggleH2,
     'h3': toggleH3,
@@ -58,6 +58,7 @@ export class Menubar {
     "Blockquote": "blockquote",
     "BulletList": "ul",
     "OrderedList": "ol",
+    "HorizontalRule": "hr",
     "ATXHeading1": "h1",
     "ATXHeading2": "h2",
     "ATXHeading3": "h3",
@@ -86,7 +87,7 @@ export class Menubar {
         button.appendChild(icon)
         button.addEventListener("click", (e) => {
           e.preventDefault()
-          const fn: StateCommand = this.actionMap[name]
+          const fn = this.actionMap[name]
           if (fn && editor.view) {
             editor.view.focus()
             fn(editor.view)

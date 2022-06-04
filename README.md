@@ -32,6 +32,7 @@ document.getElementById('menubar')!.appendChild(menubar.element)
 - strikethrough
 - codeblock
 - blockquote
+- hr
 - ul
 - ol
 - h1
@@ -40,3 +41,11 @@ document.getElementById('menubar')!.appendChild(menubar.element)
 - h4
 - h5
 - h6
+
+When `undo` or `redo` is included, `MarkMirror` requires a history extension:
+
+```js
+import { MarkMirror, localHistory } from "@markmirror/core"
+
+const editor = new MarkMirror({ extensions: [ localHistory ]})
+```
