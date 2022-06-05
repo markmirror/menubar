@@ -17,6 +17,7 @@ import {
   toggleH5,
   toggleH6,
   onSelectionSet,
+  insertLinebreak,
   MarkMirror,
 } from "@markmirror/core"
 import { Command } from "@codemirror/view"
@@ -35,6 +36,7 @@ export class Menubar {
     'strikethrough': toggleStrikethrough,
     'codeblock': toggleBlockcode,
     'blockquote': toggleBlockquote,
+    'br': insertLinebreak,
     'ul': toggleBulletList,
     'ol': toggleOrderedList,
     'hr': toggleHorizontalRule,
