@@ -1,3 +1,4 @@
+import "./css/index.css"
 import {
   toggleBold,
   toggleItalic,
@@ -83,7 +84,7 @@ export class Menubar {
       } else {
         const button = document.createElement("button")
         const icon = document.createElement("i")
-        icon.className = "icon-" + name
+        icon.className = "i-menu-" + name
         button.setAttribute("data-menu", name)
         button.setAttribute("type", "button")
         button.appendChild(icon)

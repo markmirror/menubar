@@ -1,0 +1,52 @@
+@import "./icons.css";
+
+.mm-menubar {
+  --active-color: white;
+  --active-background: #222;
+  --divider-color: rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+.mm-menubar > .divider {
+  display: inline-block;
+  vertical-align: middle;
+  height: .8em;
+  margin-left: .5em;
+  margin-right: calc(.5em + 1px);
+  width: 1px;
+  background-color: var(--divider-color);
+}
+
+.mm-menubar > button {
+  margin-right: 4px;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+  width: 1.5em;
+  height: 1.5em;
+  background: transparent;
+  border-radius: 4px;
+}
+
+.mm-menubar > button.active,
+.mm-menubar > button:hover {
+  color: var(--active-color);
+  background: var(--active-background);
+}
+
+.mm-menubar > button:last-child {
+  margin-right: 0;
+}
+
+.mm-menubar > button > i {
+  mask: var(--icon-url) no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask: var(--icon-url) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: middle;
+  font-style: normal;
+  background-color: currentColor;
+}
