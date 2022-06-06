@@ -6,15 +6,13 @@ Menubar actions for the MarkMirror Markdown editor.
 
 ```js
 import { MarkMirror } from "@markmirror/core"
-import { Menubar, updateMenubar } from "@markmirror/menubar"
+import { Menubar } from "@markmirror/menubar"
 
 const editor = new MarkMirror()
 
 // Menubar requires `editor` as parameter
+// MUST init before `editor.render`
 const menubar = new Menubar(editor, ["bold", "italic", "codespan", "|", "ul", "ol", "|", "h1", "h2"])
-
-// update menubar active status with `updateMenubar` extension
-editor.addExtension(updateMenubar(menubar))
 
 // mount `menubar.element`
 document.getElementById('menubar')!.appendChild(menubar.element)

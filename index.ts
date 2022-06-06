@@ -1,75 +1,7 @@
 import "./css/index.css"
-import {
-  toggleBold,
-  toggleItalic,
-  toggleInlineCode,
-  toggleLink,
-  toggleImage,
-  toggleStrikethrough,
-  toggleBlockcode,
-  toggleBlockquote,
-  toggleBulletList,
-  toggleOrderedList,
-  toggleHorizontalRule,
-  toggleH1,
-  toggleH2,
-  toggleH3,
-  toggleH4,
-  toggleH5,
-  toggleH6,
-  onSelectionSet,
-  insertLinebreak,
-  MarkMirror,
-} from "@markmirror/core"
-import { Command } from "@codemirror/view"
-import { StateCommand } from "@codemirror/state"
-import { undo, redo } from "@codemirror/commands"
+import { MarkMirror, onSelectionSet, markdownActionMap, markdownNodeMenus } from "@markmirror/core"
 
 export class Menubar {
-  private actionMap : {[key: string]: Command | StateCommand} = {
-    'undo': undo,
-    'redo': redo,
-    'bold': toggleBold,
-    'italic': toggleItalic,
-    'codespan': toggleInlineCode,
-    'link': toggleLink,
-    'image': toggleImage,
-    'strikethrough': toggleStrikethrough,
-    'codeblock': toggleBlockcode,
-    'blockquote': toggleBlockquote,
-    'br': insertLinebreak,
-    'ul': toggleBulletList,
-    'ol': toggleOrderedList,
-    'hr': toggleHorizontalRule,
-    'h1': toggleH1,
-    'h2': toggleH2,
-    'h3': toggleH3,
-    'h4': toggleH4,
-    'h5': toggleH5,
-    'h6': toggleH6,
-  }
-
-  public typeMap : {[key: string]: string} = {
-    "StrongEmphasis": "bold",
-    "Emphasis": "italic",
-    "InlineCode": "codespan",
-    "Link": "link",
-    "Image": "image",
-    "Strikethrough": "strikethrough",
-    "FencedCode": "codeblock",
-    "CodeBlock": "codeblock",
-    "Blockquote": "blockquote",
-    "BulletList": "ul",
-    "OrderedList": "ol",
-    "HorizontalRule": "hr",
-    "ATXHeading1": "h1",
-    "ATXHeading2": "h2",
-    "ATXHeading3": "h3",
-    "ATXHeading4": "h4",
-    "ATXHeading5": "h5",
-    "ATXHeading6": "h6",
-  }
-
   public actives: string[] = []
   public element: HTMLDivElement
 
@@ -90,7 +22,7 @@ export class Menubar {
         button.appendChild(icon)
         button.addEventListener("click", (e) => {
           e.preventDefault()
-          const fn = this.actionMap[name]
+          const fn = markdownActionMap[name]
           if (fn && editor.view) {
             editor.view.focus()
             fn(editor.view)
@@ -99,6 +31,7 @@ export class Menubar {
         this.element.append(button)
       }
     })
+    editor.addExtension(updateMenubar(this))
   }
 
   updateDOM () {
@@ -113,9 +46,9 @@ export class Menubar {
   }
 }
 
-export function updateMenubar (menubar: Menubar) {
+function updateMenubar (menubar: Menubar) {
   return onSelectionSet(nodes => {
-    menubar.actives = nodes.map(node => menubar.typeMap[node.name] || "").filter(Boolean)
+    menubar.actives = nodes.map(node => markdownNodeMenus[node.name] || "").filter(Boolean)
     menubar.updateDOM()
   })
 }
