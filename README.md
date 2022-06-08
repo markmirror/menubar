@@ -43,7 +43,8 @@ document.getElementById('menubar')!.appendChild(menubar.element)
 When `undo` or `redo` is included, `MarkMirror` requires a history extension:
 
 ```js
-import { MarkMirror, localHistory } from "@markmirror/core"
+import { MarkMirror } from "@markmirror/core"
+import { history } from "@codemirror/commands"
 
-const editor = new MarkMirror({ extensions: [ localHistory ]})
+const editor = new MarkMirror({ extensions: [ history() ]})
 ```

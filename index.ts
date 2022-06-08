@@ -1,5 +1,7 @@
 import "./css/index.css"
-import { MarkMirror, onSelectionSet, markdownActionMap, markdownNodeMenus } from "@markmirror/core"
+import { MarkMirror } from "@markmirror/core"
+import { onSelectionSet, buildMarkdownActions, markdownNodeMenus } from "@markmirror/commands"
+
 
 export class Menubar {
   public actives: string[] = []
@@ -8,6 +10,8 @@ export class Menubar {
   constructor(editor: MarkMirror, menus: string[]) {
     this.element = document.createElement('div')
     this.element.classList.add("mm-menubar")
+    // TODO: collab history replacement
+    const markdownActionMap = buildMarkdownActions(true)
     menus.forEach(name => {
       if (name === "|") {
         const divider = document.createElement("span")
