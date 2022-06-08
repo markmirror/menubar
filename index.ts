@@ -1,4 +1,3 @@
-import "./css/index.css"
 import { MarkMirror } from "@markmirror/core"
 import { onSelectionSet, buildMarkdownActions, markdownNodeMenus } from "@markmirror/commands"
 
