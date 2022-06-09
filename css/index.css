@@ -11,8 +11,8 @@
   display: inline-block;
   vertical-align: middle;
   height: .8em;
-  margin-left: .5em;
-  margin-right: calc(.5em + 1px);
+  margin-left: .4em;
+  margin-right: calc(.4em + 4px);
   width: 1px;
   background-color: var(--divider-color);
 }
@@ -26,6 +26,7 @@
   height: 1.5em;
   background: transparent;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .mm-menubar > button.active,
