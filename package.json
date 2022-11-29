@@ -1,6 +1,6 @@
 {
   "name": "@markmirror/menubar",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Menubar actions for the MarkMirror Markdown editor",
   "author": {
     "name": "Hsiaoming Yang",
@@ -17,9 +17,10 @@
   ],
   "type": "module",
   "module": "index.js",
+  "types": "index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@markmirror/commands": "^0.2.0",
-    "@markmirror/core": "^0.2.0"
+    "@markmirror/commands": "^0.3.0",
+    "@markmirror/core": "^0.3.0"
   }
 }

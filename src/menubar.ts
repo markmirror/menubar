@@ -7,43 +7,7 @@ export class Menubar {
   public element: HTMLDivElement
 
   constructor(editor: MarkMirror, menus: string[] | MenuOption[]) {
-    this.element = document.createElement('div')
-    this.element.classList.add("mm-menubar")
-    // TODO: collab history replacement
-    const markdownActionMap = buildMarkdownActions(true)
-    menus.forEach(menu => {
-      if (menu === "|") {
-        const divider = document.createElement("span")
-        divider.className = "divider"
-        this.element.appendChild(divider)
-      } else {
-        let name: string, title: string
-        if (typeof menu === "string") {
-          name = menu
-          title = menu
-        } else {
-          name = menu.name
-          title = menu.title
-        }
-        const button = document.createElement("button")
-        const icon = document.createElement("i")
-        icon.className = "i-menu-" + name
-        button.setAttribute("data-menu", name)
-        button.setAttribute("type", "button")
-        button.setAttribute("title", title)
-        button.setAttribute("aria-label", title)
-        button.appendChild(icon)
-        button.addEventListener("click", (e) => {
-          e.preventDefault()
-          const fn = markdownActionMap[name]
-          if (fn && editor.view) {
-            editor.view.focus()
-            fn(editor.view)
-          }
-        })
-        this.element.append(button)
-      }
-    })
+    this.element = buildMenus(editor, menus)
     editor.addExtension(updateMenubar(this))
   }
 
@@ -64,4 +28,47 @@ function updateMenubar (menubar: Menubar) {
     menubar.actives = nodes.map(node => markdownNodeMenus[node.name] || "").filter(Boolean)
     menubar.updateDOM()
   })
+}
+
+function buildMenus (editor: MarkMirror, menus: string[] | MenuOption[]) {
+  // TODO: collab history replacement
+  const markdownActionMap = buildMarkdownActions(true)
+
+  const element = document.createElement('div')
+  element.classList.add("mm-menubar")
+
+  menus.forEach(menu => {
+    if (menu === "|") {
+      const divider = document.createElement("span")
+      divider.className = "divider"
+      element.appendChild(divider)
+    } else {
+      let name: string, title: string
+      if (typeof menu === "string") {
+        name = menu
+        title = menu
+      } else {
+        name = menu.name
+        title = menu.title
+      }
+      const button = document.createElement("button")
+      const icon = document.createElement("i")
+      icon.className = "i-menu-" + name
+      button.setAttribute("data-menu", name)
+      button.setAttribute("type", "button")
+      button.setAttribute("title", title)
+      button.setAttribute("aria-label", title)
+      button.appendChild(icon)
+      button.addEventListener("click", (e) => {
+        e.preventDefault()
+        const fn = markdownActionMap[name]
+        if (fn && editor.view) {
+          editor.view.focus()
+          fn(editor.view)
+        }
+      })
+      element.append(button)
+    }
+  })
+  return element
 }
