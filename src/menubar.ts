@@ -8,7 +8,7 @@ export class Menubar {
 
   constructor(editor: MarkMirror, menus: string[] | MenuOption[]) {
     this.element = buildMenus(editor, menus)
-    editor.addExtension(updateMenubar(this))
+    editor.use(() => updateMenubar(this))
   }
 
   updateDOM () {
